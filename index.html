@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vrunani Muley — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav" id="nav">
+    <a class="nav-name" href="#top" id="nav-name">vrunani muley</a>
+    <div class="nav-links" id="nav-links"></div>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+      <span class="theme-toggle-icon" id="theme-toggle-icon" aria-hidden="true">🌙</span>
+    </button>
+  </nav>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero-text">
+        <p class="hero-badge">available for internships</p>
+        <p class="hero-greeting" id="hero-greeting"></p>
+        <h1 class="hero-headline" id="hero-headline"></h1>
+        <p class="hero-sub" id="hero-sub"></p>
+        <div class="hero-actions">
+          <a class="hero-link" id="hero-cta" href="#work"></a>
+          <button class="hero-email" id="copy-email" type="button">
+            <span id="copy-email-text"></span><span id="copy-email-status"></span>
+          </button>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <img class="hero-visual-panel" id="hero-anim" src="assets/hero-anim/f010.jpg" alt="">
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section" id="skills">
+      <p class="section-tag">skills</p>
+      <h2 class="section-title section-title--lg">What I work with</h2>
+      <div class="skills-grid" id="skills-grid"></div>
+    </section>
+
+    <!-- ============ WORK / PROJECTS ============ -->
+    <section class="section" id="work">
+      <p class="section-tag">projects</p>
+      <h2 class="section-title section-title--lg">Selected work</h2>
+      <div id="work-list"></div>
+    </section>
+
+    <!-- ============ GALLERY ============ -->
+    <section class="section" id="gallery">
+      <p class="section-tag">gallery</p>
+      <h2 class="section-title">Other things I've built</h2>
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </section>
+
+    <!-- ============ EDUCATION ============ -->
+    <section class="section" id="education">
+      <h2 class="section-title section-title--lg">The path here</h2>
+      <div class="timeline" id="timeline-list"></div>
+    </section>
+
+    <!-- ============ MORE ABOUT ME ============ -->
+    <section class="section" id="about">
+      <p class="section-tag">more about me</p>
+      <h2 class="section-title section-title--lg" id="about-heading"></h2>
+      <div class="about-body" id="about-body"></div>
+    </section>
+
+  </main>
+
+  <!-- ============ CONTACT ============ -->
+  <footer class="footer" id="contact">
+    <div class="footer-links-row" id="footer-links-row"></div>
+
+    <div class="contact-block">
+      <p class="section-tag">contact</p>
+      <h2 class="section-title section-title--lg">Say hello</h2>
+      <p class="contact-intro" id="contact-intro"></p>
+
+      <form class="contact-form" id="contact-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="f-name">your name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name">
+          </div>
+          <div class="form-field">
+            <label for="f-subject">subject</label>
+            <input id="f-subject" name="subject" type="text" placeholder="what's this about?">
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="f-message">message</label>
+          <textarea id="f-message" name="message" rows="4" placeholder="say hello"></textarea>
+        </div>
+        <button class="send-btn" type="submit">send → <span>opens in your mail app</span></button>
+      </form>
+    </div>
+
+    <p class="colophon">© <span id="foot-year"></span> <span id="foot-name"></span> · built with html, css, javascript.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
