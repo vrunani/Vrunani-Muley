@@ -620,11 +620,22 @@ h1, h2 { margin: 0; }
 
 /* ===================================================================
    GALLERY — flip cards (competitions & certificates)
+   Only the thumbnail flips — title, summary, and tags stay put below
+   it and are never part of the 3D transform.
 =================================================================== */
-.gallery-card--flip { perspective: 1400px; }
 .gallery-card--flip:hover { transform: none; }
 
 .flip-card { position: relative; }
+
+/* the flipping element — just the thumbnail area */
+.flip-thumb-wrap {
+  position: relative;
+  perspective: 1400px;
+  aspect-ratio: 16/10;
+  margin-bottom: 1rem;
+}
+
+.flip-thumb-wrap .gallery-thumb { margin-bottom: 0; }
 
 .flip-hint {
   position: absolute;
@@ -642,33 +653,32 @@ h1, h2 { margin: 0; }
   transition: opacity 0.3s ease;
 }
 
-.flip-inner {
+.flip-thumb-inner {
   position: relative;
   width: 100%;
+  height: 100%;
   transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
   transform-style: preserve-3d;
 }
 
-.gallery-card--flip:hover .flip-inner,
-.gallery-card--flip.is-flipped .flip-inner { transform: rotateY(180deg); }
+.gallery-card--flip:hover .flip-thumb-inner,
+.gallery-card--flip.is-flipped .flip-thumb-inner { transform: rotateY(180deg); }
 
 .gallery-card--flip:hover .flip-hint,
 .gallery-card--flip.is-flipped .flip-hint { opacity: 0; }
 
-.flip-face {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.flip-front { position: relative; z-index: 1; }
-
-.flip-back {
+.flip-thumb-face {
   position: absolute;
   inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 10px;
+}
+
+.flip-thumb-back {
   transform: rotateY(180deg);
   background: var(--sage);
   border: 1px solid var(--sage-line);
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -907,16 +917,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   /* mobile text scale — the desktop clamps bottom out too large for
      a 360–400px screen, so give them their own lower floor */
-.hero-badge { font-size: 0.6rem; padding: 0.28em 0.7em; }
-.hero-greeting { font-size: 0.92rem; }
-.hero-headline { font-size: clamp(1.5rem, 7.5vw, 2rem); }
-.hero-sub { font-size: 0.85rem; margin-top: 1rem; }
-.section-title--lg { font-size: clamp(1.25rem, 5.5vw, 1.5rem); margin-bottom: 1.3rem; }
-.section-title { font-size: clamp(1.05rem, 5vw, 1.2rem); margin-bottom: 1.3rem; }
-.work-title { font-size: clamp(1.1rem, 5.5vw, 1.3rem); }
-.work-desc { font-size: 0.85rem; }
-.about-body p { font-size: 0.85rem; }
-.timeline-detail { font-size: 0.8rem; }
+  .hero-badge { font-size: 0.6rem; padding: 0.28em 0.7em; }
+  .hero-greeting { font-size: 0.92rem; }
+  .hero-headline { font-size: clamp(1.5rem, 7.5vw, 2rem); }
+  .hero-sub { font-size: 0.85rem; margin-top: 1rem; }
+  .section-title--lg { font-size: clamp(1.25rem, 5.5vw, 1.5rem); margin-bottom: 1.3rem; }
+  .section-title { font-size: clamp(1.05rem, 5vw, 1.2rem); margin-bottom: 1.3rem; }
+  .work-title { font-size: clamp(1.1rem, 5.5vw, 1.3rem); }
+  .work-desc { font-size: 0.85rem; }
+  .about-body p { font-size: 0.85rem; }
+  .timeline-detail { font-size: 0.8rem; }
 }
 
 @media (max-width: 480px) {

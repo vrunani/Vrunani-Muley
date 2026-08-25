@@ -189,24 +189,30 @@ document.addEventListener('DOMContentLoaded', () => {
       const icon = g.tags.includes('certificate') ? '🎓' : '🏆';
       wrapper.innerHTML = `
         <div class="flip-card">
-          <span class="flip-hint">flip ↻</span>
-          <div class="flip-inner">
-            <div class="flip-face flip-front">
-              <div class="gallery-thumb" style="--thumb-a:${a}; --thumb-b:${b};"><span>${g.title}</span></div>
-              <p class="gallery-meta">${g.number} · ${g.year}</p>
-              <p class="gallery-title">${g.title}</p>
-              <p class="gallery-summary">${g.summary}</p>
-              <p class="gallery-tags">${g.tags.join(' · ')}</p>
-            </div>
-            <div class="flip-face flip-back">
-              <span class="flip-back-icon" aria-hidden="true">${icon}</span>
-              <span class="flip-back-label">image coming soon</span>
+          <div class="flip-thumb-wrap">
+            <span class="flip-hint">flip ↻</span>
+            <div class="flip-thumb-inner">
+              <div class="flip-thumb-face flip-thumb-front">
+                <div class="gallery-thumb" style="--thumb-a:${a}; --thumb-b:${b};"><span>${g.title}</span></div>
+              </div>
+              <div class="flip-thumb-face flip-thumb-back">
+                <span class="flip-back-icon" aria-hidden="true">${icon}</span>
+                <span class="flip-back-label">image coming soon</span>
+              </div>
             </div>
           </div>
+          <p class="gallery-meta">${g.number} · ${g.year}</p>
+          <p class="gallery-title">${g.title}</p>
+          <p class="gallery-summary">${g.summary}</p>
+          <p class="gallery-tags">${g.tags.join(' · ')}</p>
         </div>`;
       // tap to flip — same 3D flip as desktop hover, triggered by click instead
-      wrapper.addEventListener('click', () => {
-        wrapper.classList.toggle('is-flipped');
+      wrapper.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const willOpen = !wrapper.classList.contains('is-flipped');
+        document.querySelectorAll('.gallery-card--flip.is-flipped')
+          .forEach(el => { if (el !== wrapper) el.classList.remove('is-flipped'); });
+        wrapper.classList.toggle('is-flipped', willOpen);
       });
     } else {
       wrapper.innerHTML = `
@@ -217,6 +223,13 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="gallery-tags">${g.tags.join(' · ')}</p>`;
     }
     galleryGrid.appendChild(wrapper);
+  });
+
+  // click anywhere outside a flipped gallery card flips it back
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.gallery-card--flip')) return;
+    document.querySelectorAll('.gallery-card--flip.is-flipped')
+      .forEach(el => el.classList.remove('is-flipped'));
   });
 
   // ---- Timeline ----
