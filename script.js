@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   applyTheme(savedTheme === 'dark' ? 'dark' : 'day');
 
   // ---- Nav ----
+  const navEl = document.getElementById('nav');
   document.getElementById('nav-name').textContent = d.name.toLowerCase();
   const navLinks = document.getElementById('nav-links');
   d.nav.forEach((item, i) => {
@@ -38,6 +39,21 @@ document.addEventListener('DOMContentLoaded', () => {
     a.href = item.href;
     a.textContent = item.label;
     navLinks.appendChild(a);
+  });
+
+  // ---- Mobile nav (hamburger) ----
+  const navToggle = document.getElementById('nav-toggle');
+  function setNavOpen(open) {
+    navLinks.classList.toggle('is-open', open);
+    navEl.classList.toggle('is-open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+  }
+  navToggle.addEventListener('click', () => {
+    setNavOpen(!navLinks.classList.contains('is-open'));
+  });
+  // close the menu once a link is tapped
+  navLinks.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') setNavOpen(false);
   });
 
   // ---- Hero ----
@@ -115,6 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
     skillsGrid.appendChild(row);
   });
 
+  // tap a skill pill to trigger the same fill effect hover gives on desktop
+  skillsGrid.addEventListener('click', (e) => {
+    const pill = e.target.closest('.skill-pill');
+    if (!pill) return;
+    pill.classList.toggle('is-active');
+  });
+
   // ---- Work ----
   const workList = document.getElementById('work-list');
   d.work.forEach(w => {
@@ -128,6 +151,21 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="work-tags">${w.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
       <a class="work-link" href="${w.link}" target="_blank" rel="noopener">view project →</a>`;
     workList.appendChild(item);
+  });
+
+  // tap a project to trigger the same focus-dim effect hover gives on desktop
+  workList.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return; // let the project link work normally
+    const item = e.target.closest('.work-item');
+    if (!item) return;
+    const alreadyActive = item.classList.contains('is-active');
+    workList.querySelectorAll('.work-item.is-active').forEach(el => el.classList.remove('is-active'));
+    if (alreadyActive) {
+      workList.classList.remove('is-focused');
+    } else {
+      workList.classList.add('is-focused');
+      item.classList.add('is-active');
+    }
   });
 
   // ---- Gallery ----
@@ -166,6 +204,10 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
         </div>`;
+      // tap to flip — same 3D flip as desktop hover, triggered by click instead
+      wrapper.addEventListener('click', () => {
+        wrapper.classList.toggle('is-flipped');
+      });
     } else {
       wrapper.innerHTML = `
         <div class="gallery-thumb" style="--thumb-a:${a}; --thumb-b:${b};"><span>${g.title}</span></div>
@@ -234,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ---- Nav scroll state ----
-  const navEl = document.getElementById('nav');
   const onScroll = () => {
     if (window.scrollY > 8) navEl.classList.add('is-scrolled');
     else navEl.classList.remove('is-scrolled');

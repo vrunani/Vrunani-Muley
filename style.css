@@ -138,6 +138,30 @@ h1, h2 { margin: 0; }
 .nav-links a:hover { color: var(--accent); }
 .nav-links .dot { color: var(--ink-faint); }
 
+/* hamburger button — hidden on desktop, shown only in the mobile nav query below */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-toggle-bar {
+  width: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ink);
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -368,7 +392,8 @@ h1, h2 { margin: 0; }
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.skill-pill:hover {
+.skill-pill:hover,
+.skill-pill.is-active {
   border-color: var(--accent);
   box-shadow: var(--shadow-sm);
 }
@@ -388,7 +413,8 @@ h1, h2 { margin: 0; }
   z-index: 0;
 }
 
-.skill-pill:hover .skill-pill-fill {
+.skill-pill:hover .skill-pill-fill,
+.skill-pill.is-active .skill-pill-fill {
   height: var(--level, 50%);
   background-position: 100% 0%;
 }
@@ -406,7 +432,8 @@ h1, h2 { margin: 0; }
   transition: opacity 0.4s ease 0.25s;
 }
 
-.skill-pill:hover .skill-pill-fill::after { opacity: 0.9; }
+.skill-pill:hover .skill-pill-fill::after,
+.skill-pill.is-active .skill-pill-fill::after { opacity: 0.9; }
 
 .skill-pill-label {
   position: relative;
@@ -414,8 +441,10 @@ h1, h2 { margin: 0; }
   transition: color 0.5s ease 0.05s;
 }
 
-.skill-pill:hover .skill-pill-label { color: #fff; }
-:root[data-theme="dark"] .skill-pill:hover .skill-pill-label { color: #10120f; }
+.skill-pill:hover .skill-pill-label,
+.skill-pill.is-active .skill-pill-label { color: #fff; }
+:root[data-theme="dark"] .skill-pill:hover .skill-pill-label,
+:root[data-theme="dark"] .skill-pill.is-active .skill-pill-label { color: #10120f; }
 
 .skill-pill-level {
   position: relative;
@@ -427,12 +456,14 @@ h1, h2 { margin: 0; }
   transition: opacity 0.35s ease 0.15s, transform 0.35s ease 0.15s;
 }
 
-.skill-pill:hover .skill-pill-level {
+.skill-pill:hover .skill-pill-level,
+.skill-pill.is-active .skill-pill-level {
   opacity: 0.85;
   transform: translateX(0);
 }
 
-:root[data-theme="dark"] .skill-pill:hover .skill-pill-level { color: #10120f; }
+:root[data-theme="dark"] .skill-pill:hover .skill-pill-level,
+:root[data-theme="dark"] .skill-pill.is-active .skill-pill-level { color: #10120f; }
 
 /* ===================================================================
    WORK — numbered case studies
@@ -449,10 +480,12 @@ h1, h2 { margin: 0; }
 
 .work-item:hover { padding-left: 0.4rem; }
 
-/* focus mode — hovering the list dims every project except the one
-   you're on, so attention stays on it */
-#work-list:hover .work-item { opacity: 0.4; filter: saturate(0.5); }
-#work-list .work-item:hover { opacity: 1; filter: none; }
+/* focus mode — hovering (desktop) or tapping (mobile) the list dims
+   every project except the one you're on, so attention stays on it */
+#work-list:hover .work-item,
+#work-list.is-focused .work-item { opacity: 0.4; filter: saturate(0.5); }
+#work-list .work-item:hover,
+#work-list .work-item.is-active { opacity: 1; filter: none; }
 
 .work-tag {
   font-family: var(--font-mono);
@@ -609,8 +642,6 @@ h1, h2 { margin: 0; }
   transition: opacity 0.3s ease;
 }
 
-.gallery-card--flip:hover .flip-hint { opacity: 0; }
-
 .flip-inner {
   position: relative;
   width: 100%;
@@ -618,7 +649,11 @@ h1, h2 { margin: 0; }
   transform-style: preserve-3d;
 }
 
-.gallery-card--flip:hover .flip-inner { transform: rotateY(180deg); }
+.gallery-card--flip:hover .flip-inner,
+.gallery-card--flip.is-flipped .flip-inner { transform: rotateY(180deg); }
+
+.gallery-card--flip:hover .flip-hint,
+.gallery-card--flip.is-flipped .flip-hint { opacity: 0; }
 
 .flip-face {
   backface-visibility: hidden;
@@ -817,75 +852,71 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   outline-offset: 2px;
 }
 
-/* ===================================================================
-   TOUCH DEVICE FALLBACKS
-   The skill pills, gallery flip-cards, and work-list focus-dim all
-   reveal their content on :hover. Touchscreens have no hover, so
-   without this block that content is simply unreachable on phones
-   and tablets — not degraded, gone. Split behavior by input type:
-   real hover (mouse/trackpad) keeps the original interaction;
-   coarse pointers (touch) get the info shown by default instead.
-=================================================================== */
-@media (hover: none), (pointer: coarse) {
-  /* work-list dim-on-hover would otherwise get stuck half-applied
-     after a tap with no way to "unhover" — just turn it off */
-  #work-list:hover .work-item,
-  #work-list .work-item:hover { opacity: 1; filter: none; }
-
-  /* skill level: show the number and a static fill by default
-     instead of only on an impossible hover */
-  .skill-pill-fill {
-    height: var(--level, 50%);
-    opacity: 0.55;
-  }
-  .skill-pill-fill::after { display: none; }
-  .skill-pill-label { color: #fff; }
-  :root[data-theme="dark"] .skill-pill-label { color: #10120f; }
-  .skill-pill-level {
-    opacity: 0.85;
-    transform: translateX(0);
-    color: #fff;
-  }
-  :root[data-theme="dark"] .skill-pill-level { color: #10120f; }
-
-  /* gallery flip cards: hover-flip can't work on touch, so drop the
-     3D flip and show both faces stacked — front info first, then
-     the back content right below it, always visible */
-  .flip-hint { display: none; }
-  .flip-inner { transform: none !important; }
-  .flip-card { perspective: none; }
-  .flip-inner { display: flex; flex-direction: column; }
-  .flip-face { position: relative; backface-visibility: visible; }
-  .flip-back {
-    position: relative;
-    inset: auto;
-    transform: none;
-    margin-top: 0.6rem;
-    aspect-ratio: 16/10;
-  }
-}
-
 @media (max-width: 760px) {
   .hero { grid-template-columns: 1fr; text-align: left; }
   .hero-visual { order: -1; aspect-ratio: 16/10; }
 }
 
+/* ===================================================================
+   MOBILE NAV — hamburger menu
+   Five links + logo + theme toggle don't fit one row on a phone.
+   Below 640px, links collapse into a dropdown opened by a hamburger
+   button (toggled in script.js) instead of squeezing or wrapping.
+=================================================================== */
 @media (max-width: 640px) {
-  .nav {
-    flex-wrap: wrap;
-    row-gap: 0.7rem;
-    padding: 1.1rem 1.2rem;
-  }
-  .nav-name { order: 1; }
-  .theme-toggle { order: 2; margin-left: 0; }
+  .nav { padding: 1rem 1.2rem; }
+  .nav-name { order: 1; font-size: 0.82rem; }
+  .nav-toggle { display: flex; order: 2; margin-left: auto; }
+  .theme-toggle { order: 3; margin-left: 0.6rem; width: 32px; height: 32px; }
+
+  .nav.is-open .nav-toggle-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav.is-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+  .nav.is-open .nav-toggle-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
   .nav-links {
-    order: 3;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.3rem 0.55rem;
-    font-size: 0.78rem;
+    order: 4;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    box-shadow: var(--shadow-md);
+    font-size: 0.92rem;
+    max-height: 0;
+    padding: 0 1rem;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.3s ease;
   }
+
+  .nav-links.is-open {
+    max-height: 360px;
+    opacity: 1;
+    padding: 1.3rem 1rem 1.5rem;
+    pointer-events: auto;
+  }
+
+  .nav-links .dot { display: none; }
+
+  /* mobile text scale — the desktop clamps bottom out too large for
+     a 360–400px screen, so give them their own lower floor */
+  .hero-badge { font-size: 0.66rem; padding: 0.3em 0.75em; }
+  .hero-greeting { font-size: 1.05rem; }
+  .hero-headline { font-size: clamp(1.85rem, 8.5vw, 2.4rem); }
+  .hero-sub { font-size: 0.95rem; margin-top: 1.1rem; }
+  .section-title--lg { font-size: clamp(1.45rem, 6.5vw, 1.8rem); margin-bottom: 1.5rem; }
+  .section-title { font-size: clamp(1.2rem, 5.5vw, 1.4rem); margin-bottom: 1.5rem; }
+  .work-title { font-size: clamp(1.25rem, 6.5vw, 1.5rem); }
+  .work-desc { font-size: 0.94rem; }
+  .about-body p { font-size: 0.94rem; }
+  .timeline-detail { font-size: 0.88rem; }
 }
 
 @media (max-width: 480px) {
@@ -894,7 +925,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .timeline-years { padding-left: 0; }
   .skill-category { grid-template-columns: 1fr; gap: 0.5rem; }
   .form-row { grid-template-columns: 1fr; }
-  .nav-links { font-size: 0.72rem; gap: 0.3rem 0.5rem; }
   .contact-block { border-radius: 14px; padding: 1.4rem; }
   .hero { padding-left: 1.2rem; padding-right: 1.2rem; }
   .section { padding-left: 1.2rem; padding-right: 1.2rem; }
