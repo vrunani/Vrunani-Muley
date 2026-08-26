@@ -144,11 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const item = document.createElement('article');
     item.className = 'work-item';
     item.innerHTML = `
-      <span class="work-tag">${w.tag}</span>
+      <span class="work-tag">${w.type}</span>
       <h3 class="work-title">${w.title}</h3>
-      <p class="work-role">${w.role}</p>
-      <p class="work-desc">${w.description.replace(/\s+/g, ' ').trim()}</p>
       <div class="work-tags">${w.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      <p class="work-desc">${w.description.replace(/\s+/g, ' ').trim()}</p>
       <a class="work-link" href="${w.link}" target="_blank" rel="noopener">view project →</a>`;
     workList.appendChild(item);
   });
@@ -175,14 +174,29 @@ document.addEventListener('DOMContentLoaded', () => {
     ['#EDF0F2', '#DCE3E8'],
     ['#F1EDEE', '#E5DBDD'],
   ];
+  // Builds the markup inside a .gallery-thumb — renders both the light
+  // and dark image (when provided) so the CSS in style.css can instantly
+  // swap which one shows as soon as the theme toggle flips data-theme.
+  // Falls back to the plain gradient + title label if no image is set.
+  function galleryThumbInner(g) {
+    if (!g.image) return `<span>${g.title}</span>`;
+    const light = `<img class="thumb-light" src="${g.image}" alt="${g.title}">`;
+    const dark = g.imageDark
+      ? `<img class="thumb-dark" src="${g.imageDark}" alt="${g.title}">`
+      : `<img class="thumb-dark" src="${g.image}" alt="${g.title}">`; // no dark art yet — reuse light so it never goes blank
+    return light + dark;
+  }
+
   const galleryGrid = document.getElementById('gallery-grid');
   d.gallery.forEach((g, i) => {
-    // competitions & certificates get a flip-to-reveal back face
-    // (sage green placeholder for now — swap in an image later)
+    // competitions & certificates get a flip-to-reveal back face,
+    // which now shows the actual proof image linked in data.js
     const isFlip = g.tags.some(t => t === 'competition' || t === 'certificate');
-    const wrapper = document.createElement(g.link ? 'a' : 'div');
+    // flip cards are divs (click flips them); regular cards stay links
+    // to the actual project when a project link is present
+    const wrapper = document.createElement(!isFlip && g.link ? 'a' : 'div');
     wrapper.className = 'gallery-card' + (isFlip ? ' gallery-card--flip' : '');
-    if (g.link) { wrapper.href = g.link; wrapper.target = '_blank'; wrapper.rel = 'noopener'; }
+    if (!isFlip && g.link) { wrapper.href = g.link; wrapper.target = '_blank'; wrapper.rel = 'noopener'; }
     const [a, b] = thumbTints[i % thumbTints.length];
 
     if (isFlip) {
@@ -193,11 +207,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="flip-hint">flip ↻</span>
             <div class="flip-thumb-inner">
               <div class="flip-thumb-face flip-thumb-front">
-                <div class="gallery-thumb" style="--thumb-a:${a}; --thumb-b:${b};"><span>${g.title}</span></div>
+                <div class="gallery-thumb" style="--thumb-a:${a}; --thumb-b:${b};">${galleryThumbInner(g)}</div>
               </div>
               <div class="flip-thumb-face flip-thumb-back">
-                <span class="flip-back-icon" aria-hidden="true">${icon}</span>
-                <span class="flip-back-label">image coming soon</span>
+                ${g.link
+                  ? `<img class="flip-back-proof" src="${g.link}" alt="${g.title} proof">`
+                  : `<span class="flip-back-icon" aria-hidden="true">${icon}</span><span class="flip-back-label">image coming soon</span>`
+                }
               </div>
             </div>
           </div>
@@ -216,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     } else {
       wrapper.innerHTML = `
-        <div class="gallery-thumb" style="--thumb-a:${a}; --thumb-b:${b};"><span>${g.title}</span></div>
+        <div class="gallery-thumb" style="--thumb-a:${a}; --thumb-b:${b};">${galleryThumbInner(g)}</div>
         <p class="gallery-meta">${g.number} · ${g.year}</p>
         <p class="gallery-title">${g.title}</p>
         <p class="gallery-summary">${g.summary}</p>
@@ -281,11 +297,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Contact form -> opens mail app ----
   document.getElementById('contact-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = document.getElementById('f-name').value.trim();
+    const name = document.getElementById('f-name').value.trim() || 'Not provided';
     const subject = document.getElementById('f-subject').value.trim() || 'Hello';
-    const message = document.getElementById('f-message').value.trim();
-    const body = `${message}${name ? `\n\n— ${name}` : ''}`;
-    window.location.href = `mailto:${d.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const message = document.getElementById('f-message').value.trim() || 'Not provided';
+    const body =
+      `Name: ${name}\n` +
+      `Subject: ${subject}\n\n` +
+      `Message:\n${message}\n\n` +
+      `-----\n` +
+      `Sent from portfolio contact form`;
+    window.location.href = `mailto:${d.contact.email}?subject=${encodeURIComponent('Portfolio contact: ' + subject)}&body=${encodeURIComponent(body)}`;
   });
 
   // ---- Nav scroll state ----

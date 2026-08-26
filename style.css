@@ -46,7 +46,6 @@
 }
 
 body { transition: background 0.35s ease, color 0.35s ease; }
-.nav { transition: background 0.35s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
 :root[data-theme="dark"] .nav { background: rgba(16, 17, 20, 0.82); }
 
 @media (prefers-reduced-motion: reduce) {
@@ -111,7 +110,7 @@ h1, h2 { margin: 0; }
   background: rgba(250, 250, 248, 0.82);
   backdrop-filter: blur(10px) saturate(1.1);
   border-bottom: 1px solid transparent;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.35s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nav.is-scrolled {
@@ -124,6 +123,7 @@ h1, h2 { margin: 0; }
   font-size: 0.88rem;
   color: var(--ink);
   letter-spacing: -0.01em;
+  transition: color 0.35s ease;
 }
 
 .nav-links {
@@ -262,6 +262,7 @@ h1, h2 { margin: 0; }
   line-height: 1.06;
   opacity: 0;
   animation: fadeIn 0.55s ease-out 0.22s forwards;
+  transition: color 0.35s ease;
 }
 
 .hero-sub {
@@ -347,6 +348,7 @@ h1, h2 { margin: 0; }
   letter-spacing: -0.01em;
   margin-bottom: 2rem;
   max-width: var(--text-max);
+  transition: color 0.35s ease;
 }
 
 .section-title--lg {
@@ -469,7 +471,7 @@ h1, h2 { margin: 0; }
    WORK — numbered case studies
 =================================================================== */
 .work-item {
-  padding: 2.6rem 0;
+  padding: 1.9rem 0;
   border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -493,6 +495,7 @@ h1, h2 { margin: 0; }
   color: var(--ink-faint);
   display: block;
   margin-bottom: 0.8rem;
+  transition: color 0.35s ease;
 }
 
 .work-title {
@@ -500,26 +503,21 @@ h1, h2 { margin: 0; }
   font-weight: 700;
   letter-spacing: -0.015em;
   margin-bottom: 0.3rem;
-}
-
-.work-role {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--slate);
-  margin-bottom: 1.1rem;
+  transition: color 0.35s ease;
 }
 
 .work-desc {
   color: var(--ink-soft);
   font-size: 1rem;
   max-width: 58ch;
+  margin-top: 1rem;
 }
 
 .work-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 1.2rem;
+  margin-top: 0.4rem;
 }
 
 .tag {
@@ -572,6 +570,8 @@ h1, h2 { margin: 0; }
 .gallery-card:hover { transform: translateY(-4px); }
 
 .gallery-thumb {
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 10px;
   aspect-ratio: 16/10;
@@ -591,6 +591,22 @@ h1, h2 { margin: 0; }
   color: var(--ink-soft);
   opacity: 0.65;
 }
+
+.gallery-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Light/dark gallery art swap — both images render, CSS shows only the
+   one matching the current theme, so the toggle flips them instantly
+   with no extra JS re-render needed. */
+.gallery-thumb img.thumb-dark { display: none; }
+:root[data-theme="dark"] .gallery-thumb img.thumb-light { display: none; }
+:root[data-theme="dark"] .gallery-thumb img.thumb-dark { display: block; }
 
 .gallery-meta {
   font-family: var(--font-mono);
@@ -630,6 +646,7 @@ h1, h2 { margin: 0; }
 /* the flipping element — just the thumbnail area */
 .flip-thumb-wrap {
   position: relative;
+  overflow: hidden;
   perspective: 1400px;
   aspect-ratio: 16/10;
   margin-bottom: 1rem;
@@ -670,6 +687,7 @@ h1, h2 { margin: 0; }
 .flip-thumb-face {
   position: absolute;
   inset: 0;
+  overflow: hidden;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   border-radius: 10px;
@@ -684,6 +702,16 @@ h1, h2 { margin: 0; }
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+}
+
+.flip-back-proof {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
 }
 
 .flip-back-icon { font-size: 1.7rem; }
@@ -735,7 +763,7 @@ h1, h2 { margin: 0; }
   padding-left: 1.2rem;
 }
 
-.timeline-title { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
+.timeline-title { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; transition: color 0.35s ease; }
 .timeline-org { color: var(--slate); font-weight: 400; }
 .timeline-detail { color: var(--ink-soft); font-size: 0.94rem; margin-top: 0.4rem; max-width: 56ch; }
 

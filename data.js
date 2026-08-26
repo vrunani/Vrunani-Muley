@@ -18,11 +18,9 @@ const SITE_DATA = {
 
   hero: {
     greeting: "Hi, I'm Vrunani.",
-    headline: "I build software and ship it myself.",
-    sub: `Computer engineering student in Pune. I've built a phone app,
-    an exam platform, a text editor with its own undo history, and a
-    pipeline that pushes code live on its own. Everything below is
-    real and working right now.`,
+    headline: "I build the tool I wish existed. Then I ship it.",
+    sub: `Computer engineering, but I'd rather build than just study it.
+    A few apps, a pipeline, built mostly on my own. More below.`,
     cta: { label: "see the work", href: "#work" }
   },
 
@@ -96,53 +94,55 @@ const SITE_DATA = {
     },
   ],
 
+  // Each project's "type" is a short category label shown above the
+  // title (e.g. "personal project", "automation") — it should NEVER
+  // repeat the title itself, that's redundant.
   work: [
     {
-      tag: "loom",
-      title: "LOOM",
-      role: "Personal project · Flutter, Firebase, Groq API",
-      description: `LOOM brings five productivity tools into one phone app —
-      tasks, habits, mood, notes, and screen time. Every week it uses AI to
-      read all that data and write a simple wellness report as a PDF. It
-      also has a hands-free voice assistant. Ten people tested it before
-      it went live, and I fixed the storage bugs they found.`,
-      tags: ["flutter", "firebase", "groq api", "pdf"],
-      link: "https://github.com/vrunani/loom"
-    },
-    {
-      tag: "versionvibe",
+      type: "personal project",
       title: "VersionVibe",
-      role: "Java desktop app · Java Swing, custom data structure",
-      description: `A text editor, built from scratch in Java, that works
-      like Git for your writing — it saves every version so you can undo,
-      redo, or jump back in time, even down different branches. No
-      outside libraries, just a tree structure I designed myself. Won
-      2nd place at the Buffer 6.0 Data Structures Challenge.`,
+      description: `I built this text editor from scratch in Java.
+      It works like Git, but for your writing. Every change gets
+      saved, so you can undo, redo, or hop back to an old version,
+      even down a different branch. No libraries, just a tree
+      structure I worked out myself. Placed 2nd at the Buffer 6.0
+      Data Structures Challenge.`,
       tags: ["java", "java swing", "sha-1"],
       link: "https://github.com/vrunani/Buffer-6.0"
     },
     {
-      tag: "quizely",
-      title: "Quizely",
-      role: "Web app · Spring Boot, MySQL",
-      description: `An exam platform that grades itself while students
-      wait. It saves answers automatically as students type, grades
-      multiple-choice questions on its own, and shows teachers exactly
-      how each student and each question performed. Runs on a 6-table
-      database and is live on the web right now.`,
-      tags: ["java", "spring boot", "mysql"],
-      link: "https://quize-181s.onrender.com/"
+      type: "personal project",
+      title: "Runway",
+      description: `During placement season I got sick of a messy
+      spreadsheet, so I built Runway. It tracks every application,
+      tells me if I'm even eligible based on my CGPA, and turns the
+      whole season into charts I can actually read. I still use it,
+      daily.`,
+      tags: ["firebase", "vercel", "claude api"],
+      link: "PASTE_RUNWAY_LINK_HERE"
     },
     {
-      tag: "ci-cd",
-      title: "CI/CD Pipeline",
-      role: "DevOps project · Docker, Jenkins, GitHub Actions",
-      description: `A weather app with a pipeline behind it: every push
-      gets tested, packaged into a Docker image, and put live on the
-      internet automatically — no manual steps. From typing code to it
-      being live takes about 3 minutes.`,
-      tags: ["docker", "jenkins", "github actions", "nginx"],
-      link: "https://weather-dashboard-devops-igew.onrender.com/"
+      type: "personal project",
+      title: "LOOM",
+      description: `LOOM pulls five things I used to track
+      separately into one app: tasks, habits, mood, notes, screen
+      time. Once a week it looks at all that data and writes me
+      a wellness report as a PDF. There's a hands-free voice
+      assistant too. Ten people tested it before launch, and I went
+      back and fixed the storage bugs they ran into.`,
+      tags: ["flutter", "firebase", "groq api", "pdf"],
+      link: "https://github.com/vrunani/loom"
+    },
+    {
+      type: "automation",
+      title: "Email-to-Telegram Notifier",
+      description: `This one watches my inbox for placement and
+      college emails and pings my phone with an AI-written summary
+      the second one lands. No laptop, no server on my end. It
+      runs on GitHub's free infrastructure, checking every 5
+      minutes.`,
+      tags: ["github actions", "gmail api", "ai summarization"],
+      link: "https://github.com/vrunani/email-notifier"
     },
   ],
 
@@ -151,33 +151,71 @@ const SITE_DATA = {
       number: "01",
       year: "2026",
       title: "Algorithm Visualizer",
-      summary: "Watch sorting, search, and trees run one step at a time.",
+      summary: "Sorting, searching, trees. Watch each one run step by step.",
       tags: ["html", "css", "javascript"],
-      link: "https://github.com/vrunani/AlgoVizz"
+      link: "https://github.com/vrunani/AlgoVizz",
+      image: "assets/gallery/algo vizz.jpg",
+      imageDark: "assets/gallery/algo vizz dark.jpeg"
     },
     {
       number: "02",
       year: "2025",
-      title: "Buffer 6.0 — 2nd Runner-Up",
-      summary: "Custom Data Structures Challenge, for VersionVibe.",
-      tags: ["competition"],
-      link: null
+      title: "Quizely",
+      summary: "A full exam platform, objective and subjective. Students attempt, teachers grade the subjective answers, results go out.",
+      tags: ["java", "spring boot", "postgresql"],
+      link: "https://quize-181s.onrender.com/",
+      image: "assets/gallery/quizly.jpg",
+      imageDark: "assets/gallery/quizly dark.jpeg"
     },
     {
       number: "03",
       year: "2025",
-      title: "GfG 160",
-      summary: "160 straight days of solving problems on GeeksforGeeks.",
-      tags: ["certificate"],
-      link: null
+      title: "CI/CD Pipeline",
+      summary: "Push code, it's live in about 3 minutes: tested, containerized, deployed on its own.",
+      tags: ["docker", "jenkins", "github actions"],
+      link: "https://weather-dashboard-devops-igew.onrender.com/",
+      image: "assets/gallery/cicd.jpg",
+      imageDark: "assets/gallery/cicd dark.jpeg"
     },
     {
       number: "04",
+      year: "2026",
+      title: "Moonly",
+      summary: "A period-tracking app that predicts your upcoming cycle dates.",
+      tags: ["flutter", "firebase"],
+      link: null,
+      image: "assets/gallery/moonly.jpg",
+      imageDark: "assets/gallery/moonly dark.jpeg"
+    },
+    {
+      number: "05",
+      year: "2025",
+      title: "Buffer 6.0: 2nd Runner-Up",
+      summary: "VersionVibe, the version control tool I built with custom data structures.",
+      tags: ["competition"],
+      link: "assets/buffer6.png",
+      image: "assets/gallery/version vibe.jpg",
+      imageDark: "assets/gallery/version vibe dark.jpeg"
+    },
+    {
+      number: "06",
+      year: "2025",
+      title: "GfG 160",
+      summary: "160 problems solved on GeeksforGeeks. No streak, just 160 total.",
+      tags: ["certificate"],
+      link: "assets/gfg160.png",
+      image: "assets/gallery/gfg160.jpg",
+      imageDark: "assets/gallery/gfg160 dark.jpeg"
+    },
+    {
+      number: "07",
       year: "2024",
       title: "AI Chatbot Rumble",
       summary: "Built a chatbot for an NLP competition.",
       tags: ["competition", "nlp"],
-      link: null
+      link: "assets/chatbot.png",
+      image: "assets/gallery/chatbot.jpg",
+      imageDark: "assets/gallery/chatbot dark.jpeg"
     },
   ],
 
@@ -186,13 +224,13 @@ const SITE_DATA = {
       years: "2024 — 2027",
       title: "B.E. Computer Engineering",
       org: "Cummins College of Engineering for Women",
-      detail: "Pune · GPA 7.6 / 10. Still studying — this is where LOOM, VersionVibe, and the CI/CD pipeline all got built."
+      detail: "Pune · GPA 7.6/10. Final year now. This is where I actually started shipping. VersionVibe, LOOM, Runway all happened here."
     },
     {
       years: "2021 — 2023",
       title: "Diploma, Information Technology",
       org: "Government Polytechnic Pune",
-      detail: "Pune · GPA 84.60%. Where I first started writing real code."
+      detail: "Pune · GPA 84.60%. Where I wrote my first real code. Everything after this traces back to it."
     },
     {
       years: "2019 — 2020",
@@ -205,12 +243,17 @@ const SITE_DATA = {
   about: {
     heading: "More about me",
     paragraphs: [
-      `I've built across mobile (LOOM), desktop tools (VersionVibe),
-      web platforms (Quizely), and DevOps (the CI/CD pipeline) —
-      picking up a fairly wide toolbox along the way, from AI/LLM
-      integration to cloud and CI/CD.`,
-      `Right now I'm looking for a software engineering internship —
-      somewhere I can keep building things people actually use.`
+      `I grew up in Mokhada. Pune is where things picked up speed.`,
+      `I like understanding how something works before I build on it.
+      That's probably why I still write things from scratch instead
+      of reaching for a library. LOOM taught me the real work isn't
+      the code. It's watching someone use it wrong, then figuring
+      out why.`,
+      `Outside of this, I crochet. Row by row, patient, one mistake
+      and you start over. Not that different from debugging,
+      honestly. Most evenings end with my dog, not a screen.`,
+      `Final year now. Open to placements, somewhere I can keep
+      building things people actually use.`
     ]
   },
 
@@ -219,7 +262,7 @@ const SITE_DATA = {
     phone: "+91 70288 25351",
     linkedin: "https://www.linkedin.com/in/vrunani-muley-99385032a/",
     github: "https://github.com/vrunani",
-    intro: "Internships, projects, or just want to say hi — all welcome."
+    intro: "Placements, projects, or just want to say hi. All welcome."
   }
 
 };
