@@ -148,7 +148,10 @@ document.addEventListener('DOMContentLoaded', () => {
       <h3 class="work-title">${w.title}</h3>
       <div class="work-tags">${w.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
       <p class="work-desc">${w.description.replace(/\s+/g, ' ').trim()}</p>
-      <a class="work-link" href="${w.link}" target="_blank" rel="noopener">view project →</a>`;
+            <div class="work-links">
+        <a class="work-link" href="${w.link}" target="_blank" rel="noopener">view project →</a>
+        ${w.download ? `<a class="work-link work-link--download" href="${w.download}" rel="noopener">download for windows ↓</a>` : ''}
+      </div>`;
     workList.appendChild(item);
   });
 
