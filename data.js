@@ -144,10 +144,6 @@ const SITE_DATA = {
       tags: ["github actions", "gmail api", "ai summarization"],
       link: "https://github.com/vrunani/email-notifier"
     },
-  ],
-        tags: ["github actions", "gmail api", "ai summarization"],
-      link: "https://github.com/vrunani/email-notifier"
-    },
     {
       type: "desktop app",
       title: "StickyTasks",
