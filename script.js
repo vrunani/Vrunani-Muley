@@ -60,9 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('hero-greeting').textContent = d.hero.greeting;
   document.getElementById('hero-headline').textContent = d.hero.headline;
   document.getElementById('hero-sub').textContent = d.hero.sub.replace(/\s+/g, ' ').trim();
-  const cta = document.getElementById('hero-cta');
-  cta.textContent = `${d.hero.cta.label} \u2192`;
-  cta.href = d.hero.cta.href;
+const resumeBtn = document.getElementById('resume-btn');
+resumeBtn.textContent = `${d.hero.resume.label} \u2197`;
+resumeBtn.href = d.hero.resume.href;
 
   // ---- Hero visual animation ----
   // Plays frames 010–028 once (intro), then loops 029→046 forward,
