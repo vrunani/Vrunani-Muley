@@ -21,7 +21,8 @@ const SITE_DATA = {
     headline: "I build the tool I wish existed. Then I ship it.",
     sub: `Computer engineering, but I'd rather build than just study it.
     A few apps, a pipeline, built mostly on my own. More below.`,
-    cta: { label: "see the work", href: "#work" }
+    cta: { label: "see the work", href: "#work" },
+    resume: { label: "view resume", href: "assets/Vrunani_Muley_Resume.pdf" }
   },
 
   // Each skill now carries a "level" (0–100) — this drives how full the
