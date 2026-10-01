@@ -251,19 +251,17 @@ theme, and keep everything private on your PC.`,
       detail: "Mokhada · GPA 86.60%."
     },
   ],
-
-  about: {
+about: {
     heading: "More about me",
     paragraphs: [
       `I grew up in Mokhada. Pune is where things picked up speed.`,
-      `I like understanding how something works before I build on it.
-      That's probably why I still write things from scratch instead
-      of reaching for a library. LOOM taught me the real work isn't
-      the code. It's watching someone use it wrong, then figuring
-      out why.`,
+      `I love building things my way. It gives me the challenge
+      to make them better than what already exists. VersionVibe
+      was my first big project. It won a prize. That made me
+      want to build more.`,
       `Outside of this, I crochet. Row by row, patient, one mistake
       and you start over. Not that different from debugging,
-      honestly. Most evenings end with my dog, not a screen.`,
+      honestly.`,
       `Final year now. Open to placements, somewhere I can keep
       building things people actually use.`
     ]
