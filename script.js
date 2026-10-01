@@ -60,9 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('hero-greeting').textContent = d.hero.greeting;
   document.getElementById('hero-headline').textContent = d.hero.headline;
   document.getElementById('hero-sub').textContent = d.hero.sub.replace(/\s+/g, ' ').trim();
-const resumeBtn = document.getElementById('resume-btn');
-resumeBtn.textContent = `${d.hero.resume.label} \u2197`;
-resumeBtn.href = d.hero.resume.href;
+
+  // "see the work" button
+  const cta = document.getElementById('hero-cta');
+  cta.textContent = `${d.hero.cta.label} \u2192`;
+  cta.href = d.hero.cta.href;
+
+  // "view resume" text link
+  const resumeBtn = document.getElementById('resume-btn');
+  resumeBtn.textContent = `${d.hero.resume.label} \u2197`;
+  resumeBtn.href = d.hero.resume.href;
 
   // ---- Hero visual animation ----
   // Plays frames 010–028 once (intro), then loops 029→046 forward,
@@ -100,6 +107,7 @@ resumeBtn.href = d.hero.resume.href;
     setInterval(tick, 1000 / FPS);
   })();
 
+  // ---- Copy email ----
   const copyBtn = document.getElementById('copy-email');
   const copyText = document.getElementById('copy-email-text');
   const copyStatus = document.getElementById('copy-email-status');
@@ -148,7 +156,7 @@ resumeBtn.href = d.hero.resume.href;
       <h3 class="work-title">${w.title}</h3>
       <div class="work-tags">${w.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
       <p class="work-desc">${w.description.replace(/\s+/g, ' ').trim()}</p>
-            <div class="work-links">
+      <div class="work-links">
         <a class="work-link" href="${w.link}" target="_blank" rel="noopener">view project →</a>
         ${w.download ? `<a class="work-link work-link--download" href="${w.download}" rel="noopener">download for windows ↓</a>` : ''}
       </div>`;
