@@ -147,13 +147,11 @@ const SITE_DATA = {
     {
       type: "desktop app",
       title: "StickyTasks",
-      description: `I wanted a sticky note that stays on my desktop
-      and stays out of the way. So I built StickyTasks. There are
-      no forms and no buttons. You click the blank line, type, and
-      press Enter. Tick a task and confetti pops. Finished tasks
-      delete themselves after a day or a week. It works fully
-      offline, with reminders, five themes and a floating bubble
-      mode. It ships as a proper Windows installer.`,
+     description: `A sticky note that stays out of your way. It opens
+with your PC. One hotkey shows or hides it. Type straight onto
+the paper. Done tasks clean themselves up. Need space? It
+shrinks into a small floating bubble. Set reminders, pick a
+theme, and keep everything private on your PC.`,
       tags: ["electron", "react", "sqlite"],
       link: "https://github.com/vrunani/StickyTasks",
       download: "https://github.com/vrunani/StickyTasks/releases/download/v1.1.0/StickyTasks.Setup.1.1.0.exe"
