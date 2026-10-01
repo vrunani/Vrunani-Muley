@@ -145,6 +145,23 @@ const SITE_DATA = {
       link: "https://github.com/vrunani/email-notifier"
     },
   ],
+        tags: ["github actions", "gmail api", "ai summarization"],
+      link: "https://github.com/vrunani/email-notifier"
+    },
+    {
+      type: "desktop app",
+      title: "StickyTasks",
+      description: `I wanted a sticky note that stays on my desktop
+      and stays out of the way. So I built StickyTasks. There are
+      no forms and no buttons. You click the blank line, type, and
+      press Enter. Tick a task and confetti pops. Finished tasks
+      delete themselves after a day or a week. It works fully
+      offline, with reminders, five themes and a floating bubble
+      mode. It ships as a proper Windows installer.`,
+      tags: ["electron", "react", "sqlite"],
+      link: "PASTE_STICKYTASKS_LINK_HERE"
+    },
+  ],
 
   gallery: [
     {
