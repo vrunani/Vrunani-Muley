@@ -321,7 +321,19 @@ h1, h2 { margin: 0; }
 }
 
 .hero-email:hover { color: var(--ink); border-color: var(--ink); }
+.hero-link--outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  box-shadow: none;
+}
 
+.hero-link--outline:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: none;
+}
 #copy-email-status { color: var(--accent); margin-left: 0.5em; }
 
 /* ===================================================================
