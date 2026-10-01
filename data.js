@@ -155,7 +155,7 @@ const SITE_DATA = {
       offline, with reminders, five themes and a floating bubble
       mode. It ships as a proper Windows installer.`,
       tags: ["electron", "react", "sqlite"],
-      link: "PASTE_STICKYTASKS_LINK_HERE"
+      link: "https://github.com/vrunani/StickyTasks  "
     },
   ],
 
