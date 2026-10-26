@@ -108,11 +108,6 @@ const SITE_DATA = {
       even down a different branch. No libraries, just a tree
       structure I worked out myself. Placed 2nd at the Buffer 6.0
       Data Structures Challenge.`,
-      points: [
-        "Every version is a tree node; SHA-1 hash stops duplicate saves.",
-        "Undo goes up the tree, redo lets you pick a branch.",
-        "Why: normal undo deletes your redo history.",
-      ],
       tags: ["java", "java swing", "sha-1"],
       link: "https://github.com/vrunani/Buffer-6.0"
     },
@@ -124,11 +119,6 @@ const SITE_DATA = {
       tells me if I'm even eligible based on my CGPA, and turns the
       whole season into charts I can actually read. I still use it,
       daily.`,
-      points: [
-        "No backend: browser talks directly to Firebase, hosted on Vercel.",
-        "Adding a company takes 4 fields, rest is filled later.",
-        "Why: a spreadsheet never warns you about deadlines.",
-      ],
       tags: ["firebase", "vercel", "claude api"],
       link: "PASTE_RUNWAY_LINK_HERE"
     },
@@ -141,11 +131,6 @@ const SITE_DATA = {
       a wellness report as a PDF. There's a hands-free voice
       assistant too. Ten people tested it before launch, and I went
       back and fixed the storage bugs they ran into.`,
-      points: [
-        "Works offline: everything is stored on the device in Hive.",
-        "Voice commands go to a Groq model that replies in fixed JSON actions.",
-        "Why: four separate apps can't compare mood with screen time.",
-      ],
       tags: ["flutter", "firebase", "groq api", "pdf"],
       link: "https://github.com/vrunani/loom"
     },
@@ -157,11 +142,6 @@ const SITE_DATA = {
       the second one lands. No laptop, no server on my end. It
       runs on GitHub's free infrastructure, checking every 5
       minutes.`,
-      points: [
-        "GitHub Actions cron checks Gmail only for allowed senders.",
-        "GPT-4o-mini summarises, Telegram bot delivers.",
-        "Why: placement emails are urgent and get buried.",
-      ],
       tags: ["github actions", "gmail api", "ai summarization"],
       link: "https://github.com/vrunani/email-notifier"
     },
@@ -173,11 +153,6 @@ with your PC. One hotkey shows or hides it. Type straight onto
 the paper. Done tasks clean themselves up. Need space? It
 shrinks into a small floating bubble. Set reminders, pick a
 theme, and keep everything private on your PC.`,
-      points: [
-        "Electron + React UI, tasks saved in built-in SQLite.",
-        "Packaged as a Windows installer with auto-update.",
-        "Why: other to-do apps need accounts and too many clicks.",
-      ],
       tags: ["electron", "react", "sqlite"],
       link: "https://github.com/vrunani/StickyTasks",
       download: "https://github.com/vrunani/StickyTasks/releases/download/v1.1.0/StickyTasks.Setup.1.1.0.exe"
