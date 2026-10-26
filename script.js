@@ -345,29 +345,3 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
-/* ===== TOP THIRD + WHAT/HOW/WHY ===== */
-(function(){
-const P={};[].concat(SITE_DATA.work||[],SITE_DATA.gallery||[]).forEach(x=>{if(x.points)P[x.title]=x.points});
-const K=["what","how","why"];
-function list(t,sm){const a=P[t];if(!a)return null;const ol=document.createElement("ol");ol.className="points"+(sm?" points--sm":"");
-a.forEach((x,i)=>{const li=document.createElement("li");
-[["n","0"+(i+1)],["k",K[i]],["",x]].forEach(([c,v])=>{const s=document.createElement("span");if(c)s.className=c;s.textContent=v;li.appendChild(s)});ol.appendChild(li)});return ol}
-function points(){let n=0;
-document.querySelectorAll(".work-item").forEach(el=>{if(el.querySelector(".points"))return;const t=(el.querySelector(".work-title")||{}).textContent;const ol=list((t||"").trim());if(!ol)return;const d=el.querySelector(".work-desc");d?d.after(ol):el.appendChild(ol);n++});
-document.querySelectorAll(".gallery-card").forEach(el=>{if(el.querySelector(".points"))return;const t=(el.querySelector(".gallery-title")||{}).textContent;const ol=list((t||"").trim(),true);if(!ol)return;const s=el.querySelector(".gallery-summary");s?s.after(ol):el.appendChild(ol);n++});return n}
-function ticker(){const nav=document.getElementById("nav");if(!nav||document.querySelector(".ticker"))return;
-const L=["VersionVibe · 2nd place · Buffer 6.0","LOOM · 5 trackers, 1 app","Runway · placement season, tamed","CI/CD · push to live in ~3 min","Email → Telegram · zero servers","StickyTasks · tasks that stay in sight","160 DSA problems solved"];
-const t=document.createElement("div");t.className="ticker";t.setAttribute("aria-hidden","true");const tr=document.createElement("div");tr.className="ticker-track";
-L.concat(L).forEach(x=>{const s=document.createElement("span");s.className="ticker-item";s.textContent="shipped: "+x;tr.appendChild(s)});t.appendChild(tr);nav.after(t)}
-function rotator(){const h=document.getElementById("hero-headline");if(!h||document.querySelector(".hero-rotator"))return;
-const p=document.createElement("p");p.className="hero-rotator";p.innerHTML='<span class="rot-label">$ now building</span><span class="rot-word"></span><span class="rot-cursor"></span>';h.before(p);
-const w=p.querySelector(".rot-word"),W=["apps people use","pipelines that deploy","tools I wish existed","things that ship"];
-if(matchMedia("(prefers-reduced-motion:reduce)").matches){w.textContent=W[0];return}
-let i=0,c=0,d=false;(function step(){const s=W[i];c+=d?-1:1;w.textContent=s.slice(0,c);let ms=d?35:70;if(!d&&c===s.length){d=true;ms=1400}else if(d&&c===0){d=false;i=(i+1)%W.length;ms=300}setTimeout(step,ms)})()}
-function headline(){const h=document.getElementById("hero-headline");if(!h||h.querySelector(".hl"))return;const t=h.textContent.trim(),i=t.indexOf(". ");if(i<0)return;
-h.textContent=t.slice(0,i+1)+" ";const s=document.createElement("span");s.className="hl";s.textContent=t.slice(i+2);h.appendChild(s)}
-function glow(){const hero=document.querySelector(".hero");if(!hero)return;hero.addEventListener("mousemove",e=>{const r=hero.getBoundingClientRect();hero.style.setProperty("--mx",(e.clientX-r.left)+"px");hero.style.setProperty("--my",(e.clientY-r.top)+"px")})}
-function init(){ticker();rotator();headline();glow();if(!points())setTimeout(points,300)}
-document.readyState==="loading"?document.addEventListener("DOMContentLoaded",init):init();
-window.addEventListener("load",()=>{headline();points()});
-})();
