@@ -2,6 +2,7 @@
 // ALL YOUR CONTENT LIVES HERE.
 // Edit these values to change what shows up on the page —
 // no HTML or CSS editing needed.
+// "points" = [what, how, why] shown under each project.
 // ===================================================================
 
 const SITE_DATA = {
@@ -25,9 +26,6 @@ const SITE_DATA = {
     resume: { label: "view resume", href: "assets/Vrunani_Muley_Resume.pdf" }
   },
 
-  // Each skill now carries a "level" (0–100) — this drives how full the
-  // liquid fill rises on hover. Tune these numbers to match your own
-  // sense of how strong each skill is; nothing else needs to change.
   skills: [
     {
       category: "languages",
@@ -95,9 +93,6 @@ const SITE_DATA = {
     },
   ],
 
-  // Each project's "type" is a short category label shown above the
-  // title (e.g. "personal project", "automation") — it should NEVER
-  // repeat the title itself, that's redundant.
   work: [
     {
       type: "personal project",
@@ -108,6 +103,11 @@ const SITE_DATA = {
       even down a different branch. No libraries, just a tree
       structure I worked out myself. Placed 2nd at the Buffer 6.0
       Data Structures Challenge.`,
+      points: [
+        "Text editor with Git-style version history.",
+        "Custom tree in Java. Every save hashed with SHA-1. Branches are tree nodes.",
+        "Wanted to learn how version control really works. Won 2nd at Buffer 6.0."
+      ],
       tags: ["java", "java swing", "sha-1"],
       link: "https://github.com/vrunani/Buffer-6.0"
     },
@@ -119,6 +119,11 @@ const SITE_DATA = {
       tells me if I'm even eligible based on my CGPA, and turns the
       whole season into charts I can actually read. I still use it,
       daily.`,
+      points: [
+        "Placement application tracker.",
+        "Firebase backend on Vercel. CGPA eligibility check. Charts of the season.",
+        "My spreadsheet got messy mid-season. I use Runway daily."
+      ],
       tags: ["firebase", "vercel", "claude api"],
       link: "PASTE_RUNWAY_LINK_HERE"
     },
@@ -131,6 +136,11 @@ const SITE_DATA = {
       a wellness report as a PDF. There's a hands-free voice
       assistant too. Ten people tested it before launch, and I went
       back and fixed the storage bugs they ran into.`,
+      points: [
+        "One app for tasks, habits, mood, notes and screen time.",
+        "Flutter + Firebase. Groq voice assistant. Weekly wellness PDF built from the data.",
+        "I tracked five things in five places. Tested with 10 users, fixed their bugs."
+      ],
       tags: ["flutter", "firebase", "groq api", "pdf"],
       link: "https://github.com/vrunani/loom"
     },
@@ -142,17 +152,27 @@ const SITE_DATA = {
       the second one lands. No laptop, no server on my end. It
       runs on GitHub's free infrastructure, checking every 5
       minutes.`,
+      points: [
+        "Telegram alert for every placement or college email.",
+        "GitHub Actions cron every 5 min. Gmail API. AI writes the summary.",
+        "Never miss a placement mail. No laptop, no server cost."
+      ],
       tags: ["github actions", "gmail api", "ai summarization"],
       link: "https://github.com/vrunani/email-notifier"
     },
     {
       type: "desktop app",
       title: "StickyTasks",
-     description: `A sticky note that stays out of your way. It opens
+      description: `A sticky note that stays out of your way. It opens
 with your PC. One hotkey shows or hides it. Type straight onto
 the paper. Done tasks clean themselves up. Need space? It
 shrinks into a small floating bubble. Set reminders, pick a
 theme, and keep everything private on your PC.`,
+      points: [
+        "Desktop sticky note for tasks.",
+        "Electron + React + SQLite. Global hotkey, autostart, floating bubble mode.",
+        "Notes apps felt heavy. I wanted tasks always in sight."
+      ],
       tags: ["electron", "react", "sqlite"],
       link: "https://github.com/vrunani/StickyTasks",
       download: "https://github.com/vrunani/StickyTasks/releases/download/v1.1.0/StickyTasks.Setup.1.1.0.exe"
@@ -165,6 +185,11 @@ theme, and keep everything private on your PC.`,
       year: "2026",
       title: "Algorithm Visualizer",
       summary: "Sorting, searching, trees. Watch each one run step by step.",
+      points: [
+        "Step-by-step sorting, searching and tree visuals.",
+        "Plain HTML, CSS and JavaScript animations.",
+        "Seeing an algorithm run makes it stick."
+      ],
       tags: ["html", "css", "javascript"],
       link: "https://github.com/vrunani/AlgoVizz",
       image: "assets/gallery/algo vizz.jpg",
@@ -175,6 +200,11 @@ theme, and keep everything private on your PC.`,
       year: "2025",
       title: "Quizely",
       summary: "A full exam platform, objective and subjective. Students attempt, teachers grade the subjective answers, results go out.",
+      points: [
+        "Full exam platform for students and teachers.",
+        "Spring Boot + PostgreSQL. Teachers grade subjective answers, results go out.",
+        "Most quiz tools only handle MCQs."
+      ],
       tags: ["java", "spring boot", "postgresql"],
       link: "https://quize-181s.onrender.com/",
       image: "assets/gallery/quizly.jpg",
@@ -185,6 +215,11 @@ theme, and keep everything private on your PC.`,
       year: "2025",
       title: "CI/CD Pipeline",
       summary: "Push code, it's live in about 3 minutes: tested, containerized, deployed on its own.",
+      points: [
+        "Push code, live in about 3 minutes.",
+        "GitHub Actions + Jenkins test it, Docker packages it, Render deploys it.",
+        "Manual deploys are slow and error-prone."
+      ],
       tags: ["docker", "jenkins", "github actions"],
       link: "https://weather-dashboard-devops-igew.onrender.com/",
       image: "assets/gallery/cicd.jpg",
@@ -195,6 +230,11 @@ theme, and keep everything private on your PC.`,
       year: "2026",
       title: "Moonly",
       summary: "A period-tracking app that predicts your upcoming cycle dates.",
+      points: [
+        "Period tracker that predicts upcoming cycle dates.",
+        "Flutter + Firebase.",
+        "Cycle tracking should be simple and private."
+      ],
       tags: ["flutter", "firebase"],
       link: null,
       image: "assets/gallery/moonly.jpg",
