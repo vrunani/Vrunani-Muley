@@ -98,76 +98,75 @@ const SITE_DATA = {
   // Each project's "type" is a short category label shown above the
   // title (e.g. "personal project", "automation") — it should NEVER
   // repeat the title itself, that's redundant.
-// Replace the whole `work: [ ... ],` array in data.js with this one.
-// what = paragraph, how = short points, why = paragraph.
-work: [
-  {
-    type: "personal project",
-    title: "VersionVibe",
-    tags: ["java", "java swing", "sha-1"],
-    what: `A desktop text editor that treats your writing the way Git treats code. Every saved change becomes a version, and you can undo, redo or jump to any earlier one, even on a different branch, without losing anything. It placed 2nd at the Buffer 6.0 Data Structures Challenge.`,
-    how: [
-      `Each version is a node in a hand-written tree: its text, a SHA-1 hash, a parent pointer and a list of children.`,
-      `Undo is one move up the parent pointer. Redo shows a popup when a node has more than one child.`,
-      `Save compares the new hash with the last one, so saving twice without a change never creates a duplicate.`,
-    ],
-    why: `In a normal editor, undo and then typing something new wipes your redo history. I wanted history that keeps every alternative, so a tree fit better than a stack.`,
-    link: "https://github.com/vrunani/Buffer-6.0"
-  },
-  {
-    type: "personal project",
-    title: "Runway",
-    tags: ["vanilla js", "firebase", "chart.js", "vercel"],
-    what: `A placement tracker for one person: me. It holds every company, deadline, CGPA cutoff, interview round, note and resume version, then shows how the season is going through a funnel and stats. I still use it daily.`,
-    how: [
-      `No backend. The browser talks straight to Firebase Auth, Firestore and Storage, and Vercel hosts the static frontend.`,
-      `Adding an opening takes four fields. Everything else is filled in later.`,
-      `The stage shown on a card is worked out from its round timeline, so it can never disagree with the rounds.`,
-    ],
-    why: `Placement season meant dozens of companies at once, tracked in a messy spreadsheet that never warned me about a deadline or told me if I was eligible.`,
-    link: "PASTE_RUNWAY_LINK_HERE"
-  },
-  {
-    type: "personal project",
-    title: "LOOM",
-    tags: ["flutter", "hive", "groq api", "claude api"],
-    what: `One offline-first app for tasks, habits, mood, notes and screen time. Once a week it analyses all of it and writes a wellness report as a PDF. A hands-free voice assistant runs the app too. Ten people tested it before launch, and I fixed the storage bugs they found.`,
-    how: [
-      `Everything lives in Hive on the device. Firebase is only an optional backup.`,
-      `Voice goes speech-to-text, then a fast Groq model that must answer in JSON from a fixed list of about 25 intents, then the app runs the action.`,
-      `The weekly report is written by Claude, with a template fallback so it still works with no API key.`,
-    ],
-    why: `A to-do app, a habit app, a mood journal and a screen-time tracker are four separate apps, and none of them can tell you that your mood dips on high-screen-time days.`,
-    link: "https://github.com/vrunani/loom"
-  },
-  {
-    type: "automation",
-    title: "Email-to-Telegram Notifier",
-    tags: ["github actions", "gmail api", "python", "telegram"],
-    what: `It watches my Gmail for placement and college senders and sends me a Telegram message with the sender, the subject and an AI summary of under five lines. It runs on GitHub's free infrastructure, with no laptop or server.`,
-    how: [
-      `A GitHub Actions cron job runs every 5 minutes and checks the last hour of mail against a sender allowlist.`,
-      `Matching emails are summarised by GPT-4o-mini through GitHub Models, then posted to the Telegram Bot API.`,
-      `Secrets stay in GitHub Secrets, and the OAuth refresh token is generated once locally.`,
-    ],
-    why: `Placement emails are time-critical and get buried. I wanted them on my phone within minutes, with enough of a summary to decide whether to open them. It went through Cloud Functions, Twilio and Meta WhatsApp before Telegram, because that was the only one needing no card.`,
-    link: "https://github.com/vrunani/email-notifier"
-  },
-  {
-    type: "desktop app",
-    title: "StickyTasks",
-    tags: ["electron", "react", "sqlite"],
-    what: `An offline Windows sticky note that stays on top, starts with Windows and toggles with Ctrl+Shift+T. You type tasks straight onto the paper, finished ones clean themselves up, and it can shrink into a small floating bubble.`,
-    how: [
-      `Electron main process for windows, tray, hotkey and reminders. React for the UI, with a locked-down preload bridge between them.`,
-      `Tasks live in built-in SQLite. Deletes are soft, which makes Undo easy.`,
-      `Packaged with an NSIS installer and auto-updates from GitHub Releases.`,
-    ],
-    why: `Windows' built-in sticky notes are limited, and heavy to-do apps want accounts and many clicks. I wanted capture to be one hotkey, type, Enter, with nothing leaving my PC.`,
-    link: "https://github.com/vrunani/StickyTasks",
-    download: "https://github.com/vrunani/StickyTasks/releases/download/v1.1.0/StickyTasks.Setup.1.1.0.exe"
-  },
-],
+  // what = paragraph, how = short points, why = paragraph.
+  work: [
+    {
+      type: "personal project",
+      title: "VersionVibe",
+      tags: ["java", "java swing", "sha-1"],
+      what: `A desktop text editor that treats your writing the way Git treats code. Every saved change becomes a version, and you can undo, redo or jump to any earlier one, even on a different branch, without losing anything. It placed 2nd at the Buffer 6.0 Data Structures Challenge.`,
+      how: [
+        `Each version is a node in a hand-written tree: its text, a SHA-1 hash, a parent pointer and a list of children.`,
+        `Undo is one move up the parent pointer. Redo shows a popup when a node has more than one child.`,
+        `Save compares the new hash with the last one, so saving twice without a change never creates a duplicate.`,
+      ],
+      why: `In a normal editor, undo and then typing something new wipes your redo history. I wanted history that keeps every alternative, so a tree fit better than a stack.`,
+      link: "https://github.com/vrunani/Buffer-6.0"
+    },
+    {
+      type: "personal project",
+      title: "Runway",
+      tags: ["vanilla js", "firebase", "chart.js", "vercel"],
+      what: `A placement tracker for one person: me. It holds every company, deadline, CGPA cutoff, interview round, note and resume version, then shows how the season is going through a funnel and stats. I still use it daily.`,
+      how: [
+        `No backend. The browser talks straight to Firebase Auth, Firestore and Storage, and Vercel hosts the static frontend.`,
+        `Adding an opening takes four fields. Everything else is filled in later.`,
+        `The stage shown on a card is worked out from its round timeline, so it can never disagree with the rounds.`,
+      ],
+      why: `Placement season meant dozens of companies at once, tracked in a messy spreadsheet that never warned me about a deadline or told me if I was eligible.`,
+      link: "PASTE_RUNWAY_LINK_HERE"
+    },
+    {
+      type: "personal project",
+      title: "LOOM",
+      tags: ["flutter", "hive", "groq api", "claude api"],
+      what: `One offline-first app for tasks, habits, mood, notes and screen time. Once a week it analyses all of it and writes a wellness report as a PDF. A hands-free voice assistant runs the app too. Ten people tested it before launch, and I fixed the storage bugs they found.`,
+      how: [
+        `Everything lives in Hive on the device. Firebase is only an optional backup.`,
+        `Voice goes speech-to-text, then a fast Groq model that must answer in JSON from a fixed list of about 25 intents, then the app runs the action.`,
+        `The weekly report is written by Claude, with a template fallback so it still works with no API key.`,
+      ],
+      why: `A to-do app, a habit app, a mood journal and a screen-time tracker are four separate apps, and none of them can tell you that your mood dips on high-screen-time days.`,
+      link: "https://github.com/vrunani/loom"
+    },
+    {
+      type: "automation",
+      title: "Email-to-Telegram Notifier",
+      tags: ["github actions", "gmail api", "python", "telegram"],
+      what: `It watches my Gmail for placement and college senders and sends me a Telegram message with the sender, the subject and an AI summary of under five lines. It runs on GitHub's free infrastructure, with no laptop or server.`,
+      how: [
+        `A GitHub Actions cron job runs every 5 minutes and checks the last hour of mail against a sender allowlist.`,
+        `Matching emails are summarised by GPT-4o-mini through GitHub Models, then posted to the Telegram Bot API.`,
+        `Secrets stay in GitHub Secrets, and the OAuth refresh token is generated once locally.`,
+      ],
+      why: `Placement emails are time-critical and get buried. I wanted them on my phone within minutes, with enough of a summary to decide whether to open them. It went through Cloud Functions, Twilio and Meta WhatsApp before Telegram, because that was the only one needing no card.`,
+      link: "https://github.com/vrunani/email-notifier"
+    },
+    {
+      type: "desktop app",
+      title: "StickyTasks",
+      tags: ["electron", "react", "sqlite"],
+      what: `An offline Windows sticky note that stays on top, starts with Windows and toggles with Ctrl+Shift+T. You type tasks straight onto the paper, finished ones clean themselves up, and it can shrink into a small floating bubble.`,
+      how: [
+        `Electron main process for windows, tray, hotkey and reminders. React for the UI, with a locked-down preload bridge between them.`,
+        `Tasks live in built-in SQLite. Deletes are soft, which makes Undo easy.`,
+        `Packaged with an NSIS installer and auto-updates from GitHub Releases.`,
+      ],
+      why: `Windows' built-in sticky notes are limited, and heavy to-do apps want accounts and many clicks. I wanted capture to be one hotkey, type, Enter, with nothing leaving my PC.`,
+      link: "https://github.com/vrunani/StickyTasks",
+      download: "https://github.com/vrunani/StickyTasks/releases/download/v1.1.0/StickyTasks.Setup.1.1.0.exe"
+    },
+  ],
 
   gallery: [
     {
