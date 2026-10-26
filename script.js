@@ -71,40 +71,91 @@ document.addEventListener('DOMContentLoaded', () => {
   resumeBtn.textContent = `${d.hero.resume.label} \u2197`;
   resumeBtn.href = d.hero.resume.href;
 
-  // ---- Hero visual animation ----
-  // Plays frames 010–028 once (intro), then loops 029→046 forward,
-  // 046→029 backward, forward again, and so on — forever.
-  (function heroAnim() {
-    const img = document.getElementById('hero-anim');
-    if (!img) return;
+  // ---- Hero visual: your story drawn as a VersionVibe-style version tree ----
+  (function heroTree() {
+    const host = document.getElementById('hero-tree');
+    if (!host) return;
 
-    const pad = (n) => String(n).padStart(3, '0');
-    const path = (n) => `assets/hero-anim/f${pad(n)}.jpg`;
+    const N = [
+      { id: 0, t: 'SSC',          s: '2020, Mokhada. Where it started.',                x: 30,  y: 150, p: null },
+      { id: 1, t: 'Diploma IT',   s: '2023. First real code.',                          x: 100, y: 150, p: 0 },
+      { id: 2, t: 'B.E. Comp',    s: '2024. Started shipping.',                         x: 170, y: 150, p: 1 },
+      { id: 3, t: 'VersionVibe',  s: 'Built a Git for writing. 2nd at Buffer 6.0.',     x: 240, y: 150, p: 2 },
+      { id: 4, t: 'Runway',       s: 'Placement tracker. I use it daily.',              x: 330, y: 60,  p: 3 },
+      { id: 5, t: 'LOOM',         s: 'Tasks, habits, mood and a weekly AI report.',     x: 330, y: 130, p: 3 },
+      { id: 6, t: 'Moonly',       s: 'Cycle tracker with partner sharing.',             x: 330, y: 200, p: 3 },
+      { id: 7, t: 'StickyTasks',  s: 'A Windows sticky note with a hotkey.',            x: 330, y: 260, p: 3 },
+      { id: 8, t: 'HEAD',         s: 'Final year. Open to placements.',                 x: 410, y: 130, p: 5, head: true },
+    ];
+    const kids = (id) => N.filter(n => n.p === id);
+    const trail = (id) => { const a = new Set(); for (let c = N[id]; c; c = c.p === null ? null : N[c.p]) a.add(c.id); return a; };
+    const NS = 'http://www.w3.org/2000/svg';
 
-    const intro = Array.from({ length: 19 }, (_, i) => 10 + i);      // 10..28
-    const fwd   = Array.from({ length: 18 }, (_, i) => 29 + i);      // 29..46
-    const bwd   = Array.from({ length: 16 }, (_, i) => 45 - i);      // 45..30
-    const loopChunk = fwd.concat(bwd);
+    host.innerHTML = `
+      <div class="vt-bar"><span>versions</span><span id="vt-count"></span></div>
+      <svg class="vt-svg" viewBox="0 0 460 290" role="img" aria-label="Version tree of my projects"></svg>
+      <div class="vt-caption" aria-live="polite"><b id="vt-title"></b><span id="vt-sub"></span></div>
+      <div class="vt-controls">
+        <button type="button" id="vt-undo">undo</button>
+        <button type="button" id="vt-redo">redo</button>
+        <button type="button" id="vt-head">jump to HEAD</button>
+      </div>`;
+    const svg = host.querySelector('svg');
+    const el = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
 
-    // Preload all frames so playback doesn't stutter
-    intro.concat(loopChunk).forEach((n) => { new Image().src = path(n); });
+    const edges = {}, nodes = {};
+    N.forEach((n, i) => {
+      if (n.p === null) return;
+      const a = N[n.p], mx = (a.x + n.x) / 2;
+      const e = el('path', { d: `M${a.x} ${a.y} C${mx} ${a.y} ${mx} ${n.y} ${n.x} ${n.y}`, pathLength: 1, class: 'vt-edge' + (n.head ? ' is-head' : '') });
+      e.style.animationDelay = (0.15 * i) + 's';
+      svg.appendChild(e); edges[n.id] = e;
+    });
+    N.forEach((n, i) => {
+      const g = el('g', { class: 'vt-node' + (n.head ? ' is-head' : ''), tabindex: 0, role: 'button', 'aria-label': n.t });
+      g.style.animationDelay = (0.15 * i + 0.1) + 's';
+      g.append(el('circle', { cx: n.x, cy: n.y, r: 15, class: 'vt-hit' }), el('circle', { cx: n.x, cy: n.y, r: 6, class: 'vt-dot' }));
+      const tx = el('text', { x: n.x, y: n.y + 22, 'text-anchor': 'middle', class: 'vt-label' });
+      tx.textContent = n.t; g.appendChild(tx);
+      g.addEventListener('click', () => { stop(); go(n.id); });
+      g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stop(); go(n.id); } });
+      svg.appendChild(g); nodes[n.id] = g;
+    });
 
-    const FPS = 8;
-    let phase = 'intro';
-    let cursor = 0;
-
-    function tick() {
-      const seq = phase === 'intro' ? intro : loopChunk;
-      img.src = path(seq[cursor]);
-      cursor++;
-      if (cursor >= seq.length) {
-        cursor = 0;
-        if (phase === 'intro') phase = 'loop';
-      }
+    let cur = 0; const redoPick = {};
+    function go(id) {
+      cur = id;
+      const t = trail(id);
+      N.forEach(n => {
+        nodes[n.id].classList.toggle('on', t.has(n.id));
+        nodes[n.id].classList.toggle('cur', n.id === id);
+        if (edges[n.id]) edges[n.id].classList.toggle('on', t.has(n.id));
+      });
+      document.getElementById('vt-title').textContent = N[id].t;
+      document.getElementById('vt-sub').textContent = N[id].s;
+      document.getElementById('vt-count').textContent = 'v' + t.size + ' of ' + N.length;
+      document.getElementById('vt-undo').disabled = N[id].p === null;
+      const k = kids(id);
+      const rb = document.getElementById('vt-redo');
+      rb.disabled = !k.length;
+      rb.textContent = k.length > 1 ? `redo (${k.length} branches)` : 'redo';
     }
+    document.getElementById('vt-undo').onclick = () => { stop(); if (N[cur].p !== null) go(N[cur].p); };
+    document.getElementById('vt-redo').onclick = () => {
+      stop(); const k = kids(cur); if (!k.length) return;
+      const i = (redoPick[cur] = ((redoPick[cur] ?? -1) + 1) % k.length); go(k[i].id);
+    };
+    document.getElementById('vt-head').onclick = () => { stop(); go(8); };
 
-    tick();
-    setInterval(tick, 1000 / FPS);
+    // intro: walk the main line once, then settle on HEAD
+    const path = [0, 1, 2, 3, 5, 8]; let timer = null, step = 0;
+    function stop() { clearInterval(timer); timer = null; }
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    go(0);
+    if (reduced) go(8);
+    else setTimeout(() => {
+      timer = setInterval(() => { step++; if (step >= path.length) return stop(); go(path[step]); }, 850);
+    }, 900);
   })();
 
   // ---- Copy email ----
@@ -155,7 +206,11 @@ document.addEventListener('DOMContentLoaded', () => {
       <span class="work-tag">${w.type}</span>
       <h3 class="work-title">${w.title}</h3>
       <div class="work-tags">${w.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-      <p class="work-desc">${w.description.replace(/\s+/g, ' ').trim()}</p>
+      <div class="work-story">
+        <div class="story-row"><span class="story-label">what</span><p>${w.what}</p></div>
+        <div class="story-row"><span class="story-label">how</span><ul>${w.how.map(h => `<li>${h}</li>`).join('')}</ul></div>
+        <div class="story-row"><span class="story-label">why</span><p>${w.why}</p></div>
+      </div>
       <div class="work-links">
         <a class="work-link" href="${w.link}" target="_blank" rel="noopener">view project →</a>
         ${w.download ? `<a class="work-link work-link--download" href="${w.download}" rel="noopener">download for windows ↓</a>` : ''}
