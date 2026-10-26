@@ -98,71 +98,87 @@ const SITE_DATA = {
   // Each project's "type" is a short category label shown above the
   // title (e.g. "personal project", "automation") — it should NEVER
   // repeat the title itself, that's redundant.
-  // what = paragraph, how = short points, why = paragraph.
   work: [
     {
       type: "personal project",
       title: "VersionVibe",
-      tags: ["java", "java swing", "sha-1"],
-      what: `A desktop text editor that treats your writing the way Git treats code. Every saved change becomes a version, and you can undo, redo or jump to any earlier one, even on a different branch, without losing anything. It placed 2nd at the Buffer 6.0 Data Structures Challenge.`,
-      how: [
-        `Each version is a node in a hand-written tree: its text, a SHA-1 hash, a parent pointer and a list of children.`,
-        `Undo is one move up the parent pointer. Redo shows a popup when a node has more than one child.`,
-        `Save compares the new hash with the last one, so saving twice without a change never creates a duplicate.`,
+      description: `I built this text editor from scratch in Java.
+      It works like Git, but for your writing. Every change gets
+      saved, so you can undo, redo, or hop back to an old version,
+      even down a different branch. No libraries, just a tree
+      structure I worked out myself. Placed 2nd at the Buffer 6.0
+      Data Structures Challenge.`,
+      points: [
+        "Every version is a tree node; SHA-1 hash stops duplicate saves.",
+        "Undo goes up the tree, redo lets you pick a branch.",
+        "Why: normal undo deletes your redo history.",
       ],
-      why: `In a normal editor, undo and then typing something new wipes your redo history. I wanted history that keeps every alternative, so a tree fit better than a stack.`,
+      tags: ["java", "java swing", "sha-1"],
       link: "https://github.com/vrunani/Buffer-6.0"
     },
     {
       type: "personal project",
       title: "Runway",
-      tags: ["vanilla js", "firebase", "chart.js", "vercel"],
-      what: `A placement tracker for one person: me. It holds every company, deadline, CGPA cutoff, interview round, note and resume version, then shows how the season is going through a funnel and stats. I still use it daily.`,
-      how: [
-        `No backend. The browser talks straight to Firebase Auth, Firestore and Storage, and Vercel hosts the static frontend.`,
-        `Adding an opening takes four fields. Everything else is filled in later.`,
-        `The stage shown on a card is worked out from its round timeline, so it can never disagree with the rounds.`,
+      description: `During placement season I got sick of a messy
+      spreadsheet, so I built Runway. It tracks every application,
+      tells me if I'm even eligible based on my CGPA, and turns the
+      whole season into charts I can actually read. I still use it,
+      daily.`,
+      points: [
+        "No backend: browser talks directly to Firebase, hosted on Vercel.",
+        "Adding a company takes 4 fields, rest is filled later.",
+        "Why: a spreadsheet never warns you about deadlines.",
       ],
-      why: `Placement season meant dozens of companies at once, tracked in a messy spreadsheet that never warned me about a deadline or told me if I was eligible.`,
+      tags: ["firebase", "vercel", "claude api"],
       link: "PASTE_RUNWAY_LINK_HERE"
     },
     {
       type: "personal project",
       title: "LOOM",
-      tags: ["flutter", "hive", "groq api", "claude api"],
-      what: `One offline-first app for tasks, habits, mood, notes and screen time. Once a week it analyses all of it and writes a wellness report as a PDF. A hands-free voice assistant runs the app too. Ten people tested it before launch, and I fixed the storage bugs they found.`,
-      how: [
-        `Everything lives in Hive on the device. Firebase is only an optional backup.`,
-        `Voice goes speech-to-text, then a fast Groq model that must answer in JSON from a fixed list of about 25 intents, then the app runs the action.`,
-        `The weekly report is written by Claude, with a template fallback so it still works with no API key.`,
+      description: `LOOM pulls five things I used to track
+      separately into one app: tasks, habits, mood, notes, screen
+      time. Once a week it looks at all that data and writes me
+      a wellness report as a PDF. There's a hands-free voice
+      assistant too. Ten people tested it before launch, and I went
+      back and fixed the storage bugs they ran into.`,
+      points: [
+        "Works offline: everything is stored on the device in Hive.",
+        "Voice commands go to a Groq model that replies in fixed JSON actions.",
+        "Why: four separate apps can't compare mood with screen time.",
       ],
-      why: `A to-do app, a habit app, a mood journal and a screen-time tracker are four separate apps, and none of them can tell you that your mood dips on high-screen-time days.`,
+      tags: ["flutter", "firebase", "groq api", "pdf"],
       link: "https://github.com/vrunani/loom"
     },
     {
       type: "automation",
       title: "Email-to-Telegram Notifier",
-      tags: ["github actions", "gmail api", "python", "telegram"],
-      what: `It watches my Gmail for placement and college senders and sends me a Telegram message with the sender, the subject and an AI summary of under five lines. It runs on GitHub's free infrastructure, with no laptop or server.`,
-      how: [
-        `A GitHub Actions cron job runs every 5 minutes and checks the last hour of mail against a sender allowlist.`,
-        `Matching emails are summarised by GPT-4o-mini through GitHub Models, then posted to the Telegram Bot API.`,
-        `Secrets stay in GitHub Secrets, and the OAuth refresh token is generated once locally.`,
+      description: `This one watches my inbox for placement and
+      college emails and pings my phone with an AI-written summary
+      the second one lands. No laptop, no server on my end. It
+      runs on GitHub's free infrastructure, checking every 5
+      minutes.`,
+      points: [
+        "GitHub Actions cron checks Gmail only for allowed senders.",
+        "GPT-4o-mini summarises, Telegram bot delivers.",
+        "Why: placement emails are urgent and get buried.",
       ],
-      why: `Placement emails are time-critical and get buried. I wanted them on my phone within minutes, with enough of a summary to decide whether to open them. It went through Cloud Functions, Twilio and Meta WhatsApp before Telegram, because that was the only one needing no card.`,
+      tags: ["github actions", "gmail api", "ai summarization"],
       link: "https://github.com/vrunani/email-notifier"
     },
     {
       type: "desktop app",
       title: "StickyTasks",
-      tags: ["electron", "react", "sqlite"],
-      what: `An offline Windows sticky note that stays on top, starts with Windows and toggles with Ctrl+Shift+T. You type tasks straight onto the paper, finished ones clean themselves up, and it can shrink into a small floating bubble.`,
-      how: [
-        `Electron main process for windows, tray, hotkey and reminders. React for the UI, with a locked-down preload bridge between them.`,
-        `Tasks live in built-in SQLite. Deletes are soft, which makes Undo easy.`,
-        `Packaged with an NSIS installer and auto-updates from GitHub Releases.`,
+     description: `A sticky note that stays out of your way. It opens
+with your PC. One hotkey shows or hides it. Type straight onto
+the paper. Done tasks clean themselves up. Need space? It
+shrinks into a small floating bubble. Set reminders, pick a
+theme, and keep everything private on your PC.`,
+      points: [
+        "Electron + React UI, tasks saved in built-in SQLite.",
+        "Packaged as a Windows installer with auto-update.",
+        "Why: other to-do apps need accounts and too many clicks.",
       ],
-      why: `Windows' built-in sticky notes are limited, and heavy to-do apps want accounts and many clicks. I wanted capture to be one hotkey, type, Enter, with nothing leaving my PC.`,
+      tags: ["electron", "react", "sqlite"],
       link: "https://github.com/vrunani/StickyTasks",
       download: "https://github.com/vrunani/StickyTasks/releases/download/v1.1.0/StickyTasks.Setup.1.1.0.exe"
     },
