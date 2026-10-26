@@ -987,32 +987,3 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 @media (min-width: 1400px) {
   :root { --page-max: 1080px; }
 }
-/* ===== TOP THIRD: ticker + rotator + glow ===== */
-.ticker{position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--accent-soft);font-family:var(--font-mono);font-size:.74rem;color:var(--accent);white-space:nowrap;padding:.55rem 0}
-.ticker-track{display:inline-flex;gap:2.4rem;animation:tick 38s linear infinite;will-change:transform}
-.ticker:hover .ticker-track{animation-play-state:paused}
-.ticker-item::before{content:"●";margin-right:.6em;font-size:.55rem;vertical-align:middle}
-@keyframes tick{to{transform:translateX(-50%)}}
-.hero{position:relative}
-.hero::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(420px circle at var(--mx,70%) var(--my,15%),var(--accent-soft),transparent 70%)}
-.hero-rotator{font-family:var(--font-mono);font-size:.95rem;color:var(--ink-soft);margin:0 0 .9rem;display:flex;gap:.6em;align-items:center;flex-wrap:wrap}
-.rot-label{color:var(--ink-faint)}
-.rot-word{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent);padding-bottom:1px;min-height:1.2em}
-.rot-cursor{width:2px;height:1.1em;background:var(--accent);animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
-.hero-headline{font-size:clamp(2.5rem,6vw,4.4rem)}
-.hl{position:relative;display:inline-block;color:var(--accent);background:linear-gradient(100deg,var(--accent),var(--slate),var(--accent));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 5s linear infinite}
-.hl::after{content:"";position:absolute;left:0;bottom:-.05em;height:.12em;width:100%;background:var(--accent);transform-origin:left;transform:scaleX(0);animation:draw .9s .9s cubic-bezier(.65,0,.35,1) forwards}
-@keyframes shimmer{to{background-position:-200% 0}}
-@keyframes draw{to{transform:scaleX(1)}}
-/* ===== WHAT / HOW / WHY ===== */
-.points{list-style:none;margin:1.1rem 0 0;padding:0;max-width:62ch;display:grid;gap:.55rem}
-.points li{display:grid;grid-template-columns:2.2rem 3.2rem 1fr;gap:.6rem;align-items:baseline;padding:.55rem .8rem;border-left:2px solid var(--accent);background:var(--bg-raised);border-radius:0 8px 8px 0;font-size:.9rem;color:var(--ink-soft);transition:transform .25s ease}
-.points li:hover{transform:translateX(4px)}
-.points .n{font-family:var(--font-mono);font-size:.7rem;color:var(--ink-faint)}
-.points .k{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.05em}
-.points--sm{margin:.6rem 0 .8rem}
-.points--sm li{font-size:.8rem;grid-template-columns:2.6rem 1fr;padding:.4rem .6rem}
-.points--sm .n{display:none}
-@media(max-width:640px){.points li{grid-template-columns:1.6rem 2.6rem 1fr;font-size:.8rem}.hero-rotator{font-size:.8rem}.ticker{font-size:.66rem}}
-@media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
